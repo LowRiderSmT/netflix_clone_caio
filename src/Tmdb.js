@@ -1,5 +1,6 @@
-const API_KEY = 'fbb15a9f9d5f71c3e0cec53b5fac6763';
-const API_BASE = 'https://api.themoviedb.org/3';
+const API_KEY = ['fbb15a9f9d5f71c3e0cec53b5fac6763', 'd95891b3a0mshc9f33bea7c2d427p142e56jsn2c84db581d64'];
+const API_BASE = ['https://api.themoviedb.org/3', 'https://imdb8.p.rapidapi.com/'];
+
 
 /*
 - originais netflix
@@ -13,24 +14,50 @@ const API_BASE = 'https://api.themoviedb.org/3';
 
 
 // const basicFetch = async (endpoint) => {
-//     const req = await fetch (`${API_BASE}${endpoint}`);
+//     const req = await fetch (`${API_BASE[0]}${endpoint}&api_key=${API_KEY}`);
 //     const json = await req.json();
 //     return json;
 // }
 
-const imdbData = async (a) => {
-    fetch(`${API_BASE}?q=${a}`, {
+const imdbData = async (a, path) => {
+    fetch(`${API_BASE[1]}${path}${a}`, 
+    {
         "method": "GET",
         "headers": {
             "x-rapidapi-host": "imdb8.p.rapidapi.com",
-            "x-rapidapi-key": API_KEY
+            "x-rapidapi-key": API_KEY[1]
         }
     })
-    .then(response => {
-        console.log(response);
+    .then(response => response.json())
+    .then(result => {
+      if (result !== null && result !== 404) {
+        return result[0]
+      } else { 
+        console.log('error 404') 
+      }
+    })
+    .catch(err => {console.error(err) })
+}
+
+const imdbFind = async(id) => {
+    fetch(`${API_BASE[1]}title/find?q=${id}`, 
+        {   
+        "method": "GET",
+	    "headers": {
+		    "x-rapidapi-host": "imdb8.p.rapidapi.com",
+		    "x-rapidapi-key": API_KEY[1]
+	    }
+    })
+    .then(response => response.json())
+    .then(result => {
+      if (result !== null && result !== 404) {
+        console.log(result)
+      } else { 
+        console.log('error 404') 
+      }
     })
     .catch(err => {
-        console.error(err);
+	    console.error(err);
     });
 }
 
@@ -38,45 +65,25 @@ export default {
     getHomeList: async () => {
         return [
             {
-                slug: 'originals',
-                title: 'Originais do Netflix',
-                items: await basicFetch(`/discover/tv?with_network=213&language=pt-BR&api_key=${API_KEY}`)
+                slug: 'lançamentos',
+                title: 'Proximos Lançamentos',
+                items: await imdbData("Matrix", "auto-complete?q=")
             },
             {
-                slug: 'trending',
-                title: 'Recomendados para Você',
-                items: await basicFetch(`/trending/all/week?language=pt-BR&api_key=${API_KEY}`)   
-            },            
-            {
-                slug: 'Top Rated',
-                title: 'Em Alta',
-                items: await basicFetch(`/movie/top_rated?=language=pt-BR&api_key=${API_KEY}`)
+                slug: 'Popular Movies',
+                title: 'Filmes Populares',
+                items: await imdbFind( await imdbData("", "title/get-most-popular-movies")) 
             },
-            {
-                slug: 'Action',
-                title: 'Ação',
-                items: await basicFetch(`/discover/movie?with_genres=28&language=pt-BR&api_key=${API_KEY}`)
-            },
-            {
-                slug: 'Comedy',
-                title: 'Comédia',
-                items: await basicFetch(`/discover/movie?with_genres=35&language=pt-BR&api_key=${API_KEY}`)
-            },
-            {
-                slug: 'Horror',
-                title: 'Terror',
-                items: await basicFetch(`/discover/movie?with_genres=27&language=pt-BR&api_key=${API_KEY}`)
-            },            
-            {
-                slug: 'Romance',
-                title: 'Romance',
-                items: await basicFetch(`/discover/movie?with_genres=10749&language=pt-BR&api_key=${API_KEY}`)
-            },
-            {
-                slug: 'Documentary',
-                title: 'Documentarios',
-                items: await basicFetch(`/discover/movie?with_genres=99&language=pt-BR&api_key=${API_KEY}`)
-            },
+            // {
+            //     slug: 'Top Rated',
+            //     title: 'Em Alta',
+            //     items: await imdbData(`actors`)
+            // },
+            // {
+            //     slug: 'Action',
+            //     title: 'Ação',
+            //     items: await imdbData(``)
+            // },
         ];
     },
     getMovieInfo: async (movieId, type) => {
@@ -85,10 +92,10 @@ export default {
         if(movieId) {
             switch(type) {
                 case 'movie':
-                    info = await basicFetch(`/movie/${movieId}?language=pt-BR&api_key=${API_KEY}`);
+                    info = await imdbData(`/movie/${movieId}?language=pt-BR&api_key=${API_KEY}`);
                 break;
                 case 'tv':
-                    info = await basicFetch(`/tv/${movieId}?language=pt-BR&api_key=${API_KEY}`);
+                    info = await imdbData(`/tv/${movieId}?language=pt-BR&api_key=${API_KEY}`);
                 break;
                 default:
                     info = null;

@@ -32,7 +32,7 @@ header.black {
     height: 30px;
     width: 200px;
     border-radius: 4px;
-   display: flex;
+    display: flex;
 }
 
 @media (max-width: 760px) {

@@ -33,16 +33,16 @@ export default ({title, items}) => {
                 <NavigateNextIcon style={{fontSize: 50}} />
             </div>
             <div className="movieRow--listarea">
-                <div className="movieRow--list" style={{
+                {/* <div className="movieRow--list" style={{
                     marginLeft: scrollX,
                     width: items.results.length * 150
                 }}>
                     {items.results.length > 0 && items.results.map((item, key)=>(
-                       <div key={key} className="movieRow--item">
+                        <div key={key} className="movieRow--item">
                             <img src={`https://image.tmdb.org/t/p/w300${item.poster_path} `} alt={items.original_title} />
                         </div>
                     ))}
-                </div>
+                </div> */}
             </div>
         </div>
     );
