@@ -1,6 +1,8 @@
 import React from "react";
 import './Header.css';
 import SearchIcon from '@mui/icons-material/Search';
+/*esse codigo foi copiado, mas entendido em sua maioria, não saberia implementar ele se fosse refaze-lo do zero,
+porem consigo sim entender cada parte dele e oque cada codigo faz*/
 
 
 export default ({black}) => {

@@ -3,6 +3,11 @@ import './MovieRow.css';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 
+/*esse com certeza foi o maior desafio que tive sucesso em completar no projeto,
+o tutorial ensinava a implementação dos @material-ui para os icones de navegação,
+porem não funcionavam devido a atualização da versão, fui do 0% (desconhecimento) ao 100%(entender o porque nao ter funcionado) 
+em uma tarde de segunda-feira para conseguir fazer funcionar os icones */ 
+
 export default ({title, items}) => {
     const [scrollX, setScrollX] = useState(0);
 

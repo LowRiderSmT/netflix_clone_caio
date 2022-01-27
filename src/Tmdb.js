@@ -1,15 +1,15 @@
 const API_KEY = ['fbb15a9f9d5f71c3e0cec53b5fac6763', 'd95891b3a0mshc9f33bea7c2d427p142e56jsn2c84db581d64'];
 const API_BASE = ['https://api.themoviedb.org/3', 'https://imdb8.p.rapidapi.com/'];
-
+/*infelizmente não consegui fazer a API_KEY da Imdb funcionar, porem no tutorial que vi, a key do Tmdb funciona
+tentei reutilizar boa parte do codigo para implementar a key da Imdb mas não tive sucesso,
+boa parte do codigo em JS eu não escrevi de cabeça, pesquisei muito no google para tentar entender e implementar,
+acredito que quando estiver mais avançado no conhecimento em JS poderei voltar e conseguir sucesso em minha tentativa */
 
 /*
-- originais netflix
-- recomendados (trending)
+- lançamentos
+- populadres
 - em alta (top rated)
 - ação
-- terror
-- romance
-- documentarios
 */
 
 
@@ -92,10 +92,10 @@ export default {
         if(movieId) {
             switch(type) {
                 case 'movie':
-                    info = await imdbData(`/movie/${movieId}?language=pt-BR&api_key=${API_KEY}`);
+                    info = await imdbData(`${movieId}?q=${API_KEY[0]}`);
                 break;
                 case 'tv':
-                    info = await imdbData(`/tv/${movieId}?language=pt-BR&api_key=${API_KEY}`);
+                    info = await imdbData(`${movieId}?q=${API_KEY[0]}`);
                 break;
                 default:
                     info = null;

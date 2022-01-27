@@ -4,7 +4,8 @@ import Tmdb from './Tmdb'
 import MovieRow from './components/MovieRow';
 import FeaturedMovie from './components/FeaturedMovie';
 import Header from './components/Header';
-
+/*esse codigo inteiro foi copiado, passei uma tarde pesquisando e tentando entender o useState e useEffect para ver se conseguia
+manipular a lista de filmes que retornava pra mim pelo arquivo Tmdb, porem não foi possivel sua implementação */
 
   export default () => {
 
@@ -59,7 +60,7 @@ import Header from './components/Header';
             <MovieRow key={key} title={item.title} items={item.items} />
              ))}
           </section>
-
+ 
           <footer>
             <div className='Gazin-footer'>
             <strong> GazinFilms </strong><br/>

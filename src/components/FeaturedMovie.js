@@ -1,5 +1,9 @@
 import React from 'react';
 import './FeaturedMovie.css';
+/*este codigo tambem foi copiado do tutorial,
+acredito que se tivesse conseguido manipular a lista de filmes no arquivo App.js,
+90% esse codigo poderia ser reutilizado para realizar o banner(featured movie) do site*/
+
 
 export default ({item}) => {
     console.log(item);
